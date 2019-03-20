@@ -3,8 +3,8 @@ Exam 1, problem 4.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Chloe Rife.
+"""  # done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -64,12 +64,12 @@ def problem4(point1, point2, n, window):
       -- A rg.RoseWindow.
     What goes out:  Nothing (i.e., None).
     Side effects:  Draws, on the given RoseWindow:
-      -- The two given rg.Point objects.
-      -- 2n additional rg.Point objects such that:  (SEE THE PICTURES.)
-           - They are evenly spaced between the two given rg.Point objects.
-           - The leftmost n of the additional 2n rg.Point objects has fill
+      -*- The two given rg.Point objects.
+      -*- 2n additional rg.Point objects such that:  (SEE THE PICTURES.)
+           -* They are evenly spaced between the two given rg.Point objects.
+           -* The leftmost n of the additional 2n rg.Point objects has fill
              color the same as the rightmost of the two given rg.Point objects.
-           - The rightmost n of the additional 2n rg.Point objects has fill
+           -* The rightmost n of the additional 2n rg.Point objects has fill
              color the same as the leftmost of the two given rg.Point objects.
       Must render but   ** NOT close **   the window.
 
@@ -80,11 +80,23 @@ def problem4(point1, point2, n, window):
       :type window:  rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # done: 2. Implement and test this function.
     #          Tests have been written for you (above).
     # IMPORTANT: For PARTIAL CREDIT, ignore the colors.
     # -------------------------------------------------------------------------
+    point1.attach_to(window)
+    point2.attach_to(window)
 
+    dx=(point2.x-point1.x)/(2*n+1)
+    dy=(point2.y-point1.y)/(2*n+1)
+    for k in range(2*n):
+        p=rg.Point(point1.x+dx*(k+1),point1.y+dy*(k+1))
+        p.attach_to(window)
+        if k<n:
+            p.fill_color=point2.fill_color
+        else:
+            p.fill_color=point1.fill_color
+    window.render()
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
