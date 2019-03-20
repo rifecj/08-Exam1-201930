@@ -3,13 +3,13 @@ Exam 1, problem 1.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Chloe Rife.
+"""  # done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
 # -----------------------------------------------------------------------------
-# TODO: 2. Right-click on the  src  folder and
+# done: 2. Right-click on the  src  folder and
 #              Mark Directory as ... Sources Root,
 #          if you have not already done so.
 # -----------------------------------------------------------------------------
@@ -94,18 +94,18 @@ def problem1(circle, rectangle, color, length, window):
     What goes out:  Nothing (i.e., None)
     Side effects:
       -- Draws, on the given rg.RoseWindow, in the following order:
-           -- The given rg.Circle.
-           -- The given rg.Rectangle
-           -- An rg.Line from the center of the given rg.Circle
+           -*- The given rg.Circle.
+           -*- The given rg.Rectangle
+           -*- An rg.Line from the center of the given rg.Circle
                 to the center of the given rg.Rectangle, such that:
-                -- The rg.Line has the given color
-                -- The rg.Line has thickness the same as the outline thickness
+                -*- The rg.Line has the given color
+                -*- The rg.Line has thickness the same as the outline thickness
                      of the given rg.Circle.  (SEE THE PICTURES.)
            -- A vertical rg.Line whose:
-                -- midpoint is the midpoint of the above rg.Line,
-                -- length is the given length,
-                -- color is the fill color of the given rg.Circle, and
-                -- thickness is the sum of the thicknesses of the given
+                -*- midpoint is the midpoint of the above rg.Line,
+                -*- length is the given length,
+                -*- color is the fill color of the given rg.Circle, and
+                -*- thickness is the sum of the thicknesses of the given
                      rg.Circle and rg.Rectangle.  (SEE THE PICTURES.)
 
       Note: Attach the rg.Line AFTER attaching the rg.Circle and rg.Rectangle.
@@ -118,11 +118,33 @@ def problem1(circle, rectangle, color, length, window):
       :type window:    rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.  SEE THE PICTURES in the PDF!
+    # done: 3. Implement and test this function.  SEE THE PICTURES in the PDF!
     #          Tests have been written for you (above).
     # -------------------------------------------------------------------------
+    circle.attach_to(window)
+    rectangle.attach_to(window)
 
 
+    p1=circle.center
+    half_rect_w=rectangle.get_width()/2
+    half_rect_h=rectangle.get_height()/2
+    rect_bottom=rectangle.get_lower_left_corner().y
+    rect_left=rectangle.get_lower_left_corner().x
+    p2=rg.Point(rect_left+half_rect_w,rect_bottom-half_rect_h)
+    line=rg.Line(p1,p2)
+    line.color=color
+    line.thickness=circle.outline_thickness
+
+    line_mid=line.get_midpoint()
+    start=rg.Point(line_mid.x,line_mid.y-length/2)
+    end=rg.Point(line_mid.x,line_mid.y+length/2)
+    line2=rg.Line(start,end)
+    line2.color=circle.fill_color
+    line2.thickness=circle.outline_thickness+rectangle.outline_thickness
+
+    line.attach_to(window)
+    line2.attach_to(window)
+    window.render()
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
